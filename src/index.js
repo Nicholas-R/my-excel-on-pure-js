@@ -1,4 +1,3 @@
-import './module';
-import './scss/index.scss';
+import './scss/index.scss'
 
-console.log("Hello, it's SRC folder");
+console.log('Working!')
