@@ -27,6 +27,7 @@
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.6",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -39,6 +40,7 @@
     "eslint-loader": "^4.0.2",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "webpack": "^4.43.0",
