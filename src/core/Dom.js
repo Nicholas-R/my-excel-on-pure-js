@@ -24,6 +24,24 @@ class Dom {
       this.$el.appendChild(node)
     }
   }
+
+  // dataset(dataName) {
+  //   if (dataName) {
+  //     console.log(dataName)
+  //     console.log(this.dataset.dataName)
+  //     return this.$el.dataset.dataName
+  //   }
+  //   return this.$el.dataset
+  // }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }

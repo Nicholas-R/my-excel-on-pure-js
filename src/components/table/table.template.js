@@ -11,7 +11,7 @@ function toCell(colName) {
 }
 function toCol(colName) {
   return `
-    <div class="column" data-char="${colName}">
+    <div class="column" data-type="resizable" data-char="${colName}">
       ${colName} 
       <div class="col-resize" data-resize="col"></div>
     </div>
@@ -20,7 +20,7 @@ function toCol(colName) {
 function createRow(content, num = '') {
   const resizer = num ? `<div class="row-resize" data-resize="row"></div>` : ``
   return `
-    <div class="row" data-row="${num}">
+    <div class="row" data-type="resizable"  data-row="${num}">
       <div class="row-info">
         ${num}
         ${resizer}
@@ -47,130 +47,4 @@ export function createTable(rowsCount = 20) {
   }
 
   return rows.join('')
-}
-
-{
-  /* <div class="row">
-
-<div class="row-info"></div>
-
-<div class="row-data">
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-  <div class="column">
-    A
-  </div>
-  <div class="column">
-    B
-  </div>
-  <div class="column">
-    C
-  </div>
-
-</div>
-
-</div>
-
-<div class="row">
-<div class="row-info">
-  1
-</div>
-
-<div class="row-data">
-  <div class="cell selected" contenteditable="">A1</div>
-  <div class="cell" contenteditable="">B2</div>
-  <div class="cell" contenteditable="">C3</div>
-</div>
-</div>
-
-<div class="row">
-<div class="row-info">
-  2
-</div>
-
-<div class="row-data">
-  <div class="cell">A1</div>
-  <div class="cell">B2</div>
-  <div class="cell">C3</div>
-</div>
-</div> */
 }

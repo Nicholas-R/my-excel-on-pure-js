@@ -1,5 +1,6 @@
 import { ExcelComponent } from '@core/ExcelComponent'
 import { createTable } from '../table/table.template'
+import { $ } from '@core/Dom'
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -7,57 +8,53 @@ export class Table extends ExcelComponent {
   constructor($root) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'mousemove', 'mouseup'],
+      listeners: ['mousedown'],
     })
   }
 
-  changeWidth(colArr, rowArr, { x, y }) {
-    if (colArr.length) {
-      colArr.forEach(e => {
-        return (e.style.width = `${x - e.offsetLeft}px`)
-      })
-    }
-    if (rowArr.length) {
-      rowArr.forEach(e => {
-        return (e.style.height = `${y - e.getBoundingClientRect().y}px`)
-      })
-    }
-  }
-
-  mouseDown = 0
-  allResizeCols = []
-  resizeRow = []
-  colName = null
-  rowName = null
-
   onMousedown(event) {
     if (event.target.dataset.resize) {
-      this.mouseDown++
-      if (event.target.dataset.resize === 'col') {
-        this.colName = event.target.parentNode.dataset.char
-        this.allResizeCols = document.querySelectorAll(`[data-char="${this.colName}"]`)
+      const $resizer = $(event.target)
+      const $parent = $resizer.closest(`[data-type="resizable"]`)
+      const coords = $parent.getCoords()
+
+      // columns
+      const colName = $parent.$el.dataset.char
+      const allResizeCols = document.querySelectorAll(`[data-char="${colName}"]`)
+      // rows
+      const rowName = $parent.$el.dataset.row
+      const resizeRow = document.querySelectorAll(`[data-row="${rowName}"]`)
+
+      document.onmousemove = e => {
+        // columns
+        const colDelta = e.pageX - coords.right
+        const colValue = coords.width + colDelta
+
+        allResizeCols.forEach(el => {
+          el.style.width = `${colValue}px`
+          el.style.borderRightColor = '#3c74ff'
+        })
+        // rows
+        const rowDelta = e.pageY - coords.bottom
+        const rowValue = coords.height + rowDelta
+
+        resizeRow.forEach(el => {
+          el.style.height = `${rowValue}px`
+          el.style.borderBottom = '1px solid #3c74ff'
+        })
       }
-      if (event.target.dataset.resize === 'row') {
-        this.rowName = event.target.parentNode.parentNode.dataset.row
-        this.resizeRow = document.querySelectorAll(`[data-row="${this.rowName}"]`)
+      document.onmouseup = () => {
+        document.onmousemove = null
+        // columns
+        allResizeCols.forEach(el => {
+          el.style.borderRightColor = '#e2e3e3'
+        })
+        // rows
+        resizeRow.forEach(el => {
+          el.style.borderBottom = '0px solid #e2e3e3'
+        })
       }
     }
-  }
-  onMousemove(event) {
-    const position = {}
-    if (this.mouseDown) {
-      position.x = event.x
-      position.y = event.y
-      this.changeWidth(this.allResizeCols, this.resizeRow, position)
-    }
-    return null
-  }
-  onMouseup(event) {
-    this.mouseDown--
-    this.allResizeCols = []
-    this.resizeRow = []
-    this.colName = null
-    this.rowName = null
   }
 
   toHTML() {
