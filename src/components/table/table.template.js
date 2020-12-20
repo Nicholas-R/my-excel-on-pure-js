@@ -21,12 +21,19 @@ function createRow(content, num = '') {
   const resizer = num ? `<div class="row-resize" data-resize="row"></div>` : ``
   return `
     <div class="row" data-type="resizable"  data-row="${num}">
-      <div class="row-info">
+      <div class="row-info" data-select="row-info">
         ${num}
         ${resizer}
       </div>
       <div class="row-data">${content}</div>
     </div>
+  `
+}
+
+function createSeparator() {
+  return `
+    <div data-select="separator-block" class="table-separator-block"></div>
+    <div data-select="separator" class="table-separator"></div>
   `
 }
 
@@ -40,6 +47,7 @@ export function createTable(rowsCount = 20) {
   const cols = new Array(colCount).fill('').map(toChar).map(toCol).join('')
   const cell = new Array(colCount).fill('').map(toChar).map(toCell).join('')
 
+  rows.push(createSeparator())
   rows.push(createRow(cols))
 
   for (let i = 1; i <= rowsCount; i++) {

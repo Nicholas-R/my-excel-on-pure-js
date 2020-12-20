@@ -25,14 +25,9 @@ class Dom {
     }
   }
 
-  // dataset(dataName) {
-  //   if (dataName) {
-  //     console.log(dataName)
-  //     console.log(this.dataset.dataName)
-  //     return this.$el.dataset.dataName
-  //   }
-  //   return this.$el.dataset
-  // }
+  get data() {
+    return this.$el.dataset
+  }
 
   closest(selector) {
     return $(this.$el.closest(selector))
@@ -42,9 +37,28 @@ class Dom {
     return this.$el.getBoundingClientRect()
   }
 
+  findAll(selectors) {
+    return document.querySelectorAll(selectors)
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(key => {
+      this.$el.style[key] = styles[key]
+    })
+  }
+
+  addClass(selector) {
+    return this.$el.classList.add(selector)
+  }
+
+  removeClass(selector) {
+    return this.$el.classList.remove(selector)
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
+
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback)
   }
