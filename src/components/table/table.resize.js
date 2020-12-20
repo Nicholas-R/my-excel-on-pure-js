@@ -1,6 +1,6 @@
 import { $ } from '@core/Dom'
 
-export function tableResizer($root) {
+export function resizeHandler($root, event) {
   let colDelta = null
   let rowDelta = null
   const $resizer = $(event.target)
